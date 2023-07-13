@@ -2,3 +2,7 @@ github.com/saltyFamiliar/tgramAPIBotLib v0.0.0-20230708211457-f781ed32c052 h1:54
 github.com/saltyFamiliar/tgramAPIBotLib v0.0.0-20230708211457-f781ed32c052/go.mod h1:PCwz0zVF+tG90i67H5jo4fdKoq1t2FrtQtk3dVvIZ7Y=
 github.com/saltyFamiliar/tgramAPIBotLib v0.0.0-20230708221332-db5dbacf005c h1:Fch6D/f35k2dBYuCGn3kMI7p+QocHOZCmFhweLyxn3M=
 github.com/saltyFamiliar/tgramAPIBotLib v0.0.0-20230708221332-db5dbacf005c/go.mod h1:PCwz0zVF+tG90i67H5jo4fdKoq1t2FrtQtk3dVvIZ7Y=
+github.com/saltyFamiliar/tgramAPIBotLib v0.0.0-20230712002101-e378c6a79183 h1:HkQAeGeSIjEN4IdF1guZubg/ByLQaa1uU0y6amg1wyA=
+github.com/saltyFamiliar/tgramAPIBotLib v0.0.0-20230712002101-e378c6a79183/go.mod h1:PCwz0zVF+tG90i67H5jo4fdKoq1t2FrtQtk3dVvIZ7Y=
+github.com/saltyFamiliar/tgramAPIBotLib v0.0.0-20230712211613-a53734bffdf2 h1:SmCRmvzjDs3wak4sRIcof9PvGacq7L+lLzY1ISjNPoo=
+github.com/saltyFamiliar/tgramAPIBotLib v0.0.0-20230712211613-a53734bffdf2/go.mod h1:PCwz0zVF+tG90i67H5jo4fdKoq1t2FrtQtk3dVvIZ7Y=
