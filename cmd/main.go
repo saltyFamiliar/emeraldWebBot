@@ -6,7 +6,6 @@ import (
 	"github.com/saltyFamiliar/emeraldWebBot/internal/commands"
 	"github.com/saltyFamiliar/tgramAPIBotLib/api"
 	"github.com/saltyFamiliar/tgramAPIBotLib/bot"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -57,35 +56,29 @@ func main() {
 	// parses requests and sends response message
 	for job := range jobCh {
 		go func(reqMsg *api.Message) {
-			//TODO: Ask about how parsing function should be implemented
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+			defer cancel()
+
 			msgText := reqMsg.Text
 			parts := strings.Split(msgText, " ")
-			if len(parts) == 3 {
-				ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
-				defer cancel()
-				startPort, err := strconv.Atoi(parts[1])
-				if err != nil {
-					if msgErr := tGramBot.SendMsg(ctx, "Error parsing first port", reqMsg.Chat.Id); msgErr != nil {
-						fmt.Println(msgErr)
-					}
-					return
+			cmd, err := commands.NewCommand(parts[0], parts[1:])
+			if err != nil {
+				if msgErr := tGramBot.SendMsg(ctx, err.Error(), reqMsg.Chat.Id); msgErr != nil {
+					fmt.Println(msgErr)
 				}
-				endPort, err := strconv.Atoi(parts[2])
-				if err != nil {
-					if msgErr := tGramBot.SendMsg(ctx, "Error parsing last port", reqMsg.Chat.Id); msgErr != nil {
-						fmt.Println(msgErr)
-					}
-					return
+				return
+			}
+
+			msg, err := cmd.Execute()
+			if err != nil {
+				if msgErr := tGramBot.SendMsg(ctx, err.Error(), reqMsg.Chat.Id); msgErr != nil {
+					fmt.Println(msgErr)
 				}
+				return
+			}
 
-				open, closed := commands.ScanPorts(parts[0], startPort, endPort, 4)
-				msg := fmt.Sprintf("Open: %v Closed: %v ", open, closed)
-
-				go func() {
-					if err := tGramBot.SendMsg(ctx, msg, reqMsg.Chat.Id); err != nil {
-						fmt.Println(err)
-					}
-				}()
+			if err := tGramBot.SendMsg(ctx, msg, reqMsg.Chat.Id); err != nil {
+				fmt.Println(err)
 			}
 		}(job)
 	}
