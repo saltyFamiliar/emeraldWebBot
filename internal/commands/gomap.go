@@ -12,7 +12,7 @@ type PortData struct {
 	IsOpen bool
 }
 
-func ScanPorts(address string, startPort, endPort, numWorkers int) (string, error) {
+func ScanPorts(address string, startPort, endPort, numWorkers int) ([]int, []int) {
 	jobCh := make(chan int, numWorkers)
 	resCh := make(chan *PortData, numWorkers)
 
@@ -54,7 +54,6 @@ func ScanPorts(address string, startPort, endPort, numWorkers int) (string, erro
 
 	slices.Sort(open)
 	slices.Sort(closed)
-	out := fmt.Sprintf("Open: %v, Closed: %v", open, closed)
 
-	return out, nil
+	return open, closed
 }
